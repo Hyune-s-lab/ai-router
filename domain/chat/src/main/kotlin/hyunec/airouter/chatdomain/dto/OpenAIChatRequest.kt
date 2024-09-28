@@ -1,6 +1,6 @@
-package hyunec.airouter.chatdomain
+package hyunec.airouter.chatdomain.dto
 
-class ChatRequest(
+class OpenAIChatRequest(
     val model: String,
     val messages: List<Message>,
     val stream: Boolean = false

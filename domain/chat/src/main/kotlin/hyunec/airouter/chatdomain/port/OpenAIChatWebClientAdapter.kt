@@ -1,6 +1,7 @@
-package hyunec.airouter.chatdomain
+package hyunec.airouter.chatdomain.port
 
-import org.springframework.beans.factory.annotation.Value
+import hyunec.airouter.chatdomain.config.OpenAIConfig
+import hyunec.airouter.chatdomain.dto.OpenAIChatRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -9,20 +10,18 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
-class OpenAIChatService(
-    @Value("\${apikey.openai}") private val apiKey: String,
-) {
-    private val baseUrl = "https://api.openai.com/"
-
+class OpenAIChatWebClientAdapter(
+    config: OpenAIConfig
+) : OpenAIChatPort {
     private val webClient = WebClient.builder()
-        .baseUrl(baseUrl)
+        .baseUrl(config.baseUrl)
         .defaultHeaders {
-            it.set(HttpHeaders.AUTHORIZATION, "Bearer $apiKey")
+            it.set(HttpHeaders.AUTHORIZATION, "Bearer ${config.apiKey}")
             it.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         }
         .build()
 
-    fun chat(request: ChatRequest): Mono<String> {
+    override fun chat(request: OpenAIChatRequest): Mono<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
@@ -30,7 +29,7 @@ class OpenAIChatService(
             .bodyToMono(String::class.java)
     }
 
-    fun streamChat(request: ChatRequest): Flux<String> {
+    override fun streamChat(request: OpenAIChatRequest): Flux<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
