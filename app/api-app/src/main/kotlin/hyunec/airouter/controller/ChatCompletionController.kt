@@ -3,81 +3,29 @@ package hyunec.airouter.controller
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
-import net.datafaker.Faker
+import hyunec.airouter.service.OpenAIService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
-import java.time.Duration
 
 @RestController
-class ChatCompletionController {
-
-    private val faker = Faker()
-
+class ChatCompletionController(
+    private val openAIService: OpenAIService
+) {
     @PostMapping("/api/chat/completions")
     fun chatCompletion(@RequestBody request: Request): ResponseEntity<out Flux<out Response>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(
-                    Flux.interval(Duration.ofMillis(100))
-                        .take(5)
-                        .map { streamResponseStub(request, false) }
-                        .concatWith(
-                            Flux.just(streamResponseStub(request, true))
-                        )
-                )
+                .body(openAIService.streamChat(request))
         }
 
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(Flux.just(nonStreamResponseStub(request)))
-    }
-
-    private fun nonStreamResponseStub(request: Request): NonStreamResponse {
-        return NonStreamResponse(
-            id = faker.number().digits(10),
-            objectz = faker.lorem().word(),
-            created = System.currentTimeMillis(),
-            model = request.model,
-            choices = listOf(
-                Response.NonStreamChoice(
-                    index = 0,
-                    message = Response.Message(
-                        role = "assistant",
-                        content = faker.lorem().sentence()
-                    ),
-                    finishReason = "stop"
-                )
-            ),
-            usage = Response.Usage(
-                promptTokens = faker.number().numberBetween(0, 100),
-                completionTokens = faker.number().numberBetween(0, 100),
-                totalTokens = faker.number().numberBetween(0, 100)
-            ),
-            systemFingerprint = faker.lorem().word()
-        )
-    }
-
-    private fun streamResponseStub(request: Request, isLast: Boolean): StreamResponse {
-        return StreamResponse(
-            id = faker.number().digits(10),
-            objectz = faker.lorem().word(),
-            created = System.currentTimeMillis(),
-            model = request.model,
-            choices = listOf(
-                Response.StreamChoice(
-                    index = 0,
-                    delta = Response.Delta(
-                        content = if (isLast) null else faker.lorem().sentence()
-                    ),
-                    finishReason = if (isLast) "stop" else null
-                )
-            )
-        )
+            .body(Flux.just(openAIService.chat(request)))
     }
 
     data class Request(
