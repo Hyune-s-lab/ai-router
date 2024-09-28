@@ -1,7 +1,5 @@
 package hyunec.airouter.service
 
-import hyunec.airouter.controller.ChatCompletionController
-import net.datafaker.Faker
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -14,7 +12,6 @@ import reactor.core.publisher.Mono
 class OpenAIService(
     @Value("\${apikey.openai}") private val apiKey: String,
 ) {
-    private val faker = Faker()
     private val baseUrl = "https://api.openai.com/"
 
     private val webClient = WebClient.builder()
@@ -25,7 +22,7 @@ class OpenAIService(
         }
         .build()
 
-    fun chat(request: ChatCompletionController.Request): Mono<String> {
+    fun chat(request: ChatRequest): Mono<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
@@ -33,7 +30,7 @@ class OpenAIService(
             .bodyToMono(String::class.java)
     }
 
-    fun streamChat(request: ChatCompletionController.Request): Flux<String> {
+    fun streamChat(request: ChatRequest): Flux<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
