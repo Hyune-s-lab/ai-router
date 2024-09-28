@@ -1,4 +1,4 @@
-package hyunec.airouter.apiapp.service
+package hyunec.airouter.chatdomain
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders

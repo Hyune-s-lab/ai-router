@@ -1,4 +1,4 @@
-package hyunec.airouter.apiapp.service
+package hyunec.airouter.chatdomain
 
 class ChatRequest(
     val model: String,

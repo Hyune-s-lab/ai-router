@@ -35,6 +35,9 @@ subprojects {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+        implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
         val kotlinLoggingVersion: String by project
         implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
 

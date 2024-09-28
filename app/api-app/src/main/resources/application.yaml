@@ -1,2 +1,4 @@
-apikey:
-    openai: ${OPENAI_API_KEY:fill_me}
+spring:
+    config:
+        import:
+            - domain-chat.yaml

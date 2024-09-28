@@ -1,7 +1,7 @@
 package hyunec.airouter.apiapp.controller
 
-import hyunec.airouter.apiapp.service.ChatRequest
-import hyunec.airouter.apiapp.service.OpenAIChatService
+import hyunec.airouter.chatdomain.ChatRequest
+import hyunec.airouter.chatdomain.OpenAIChatService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
