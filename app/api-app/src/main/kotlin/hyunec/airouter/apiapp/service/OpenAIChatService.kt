@@ -1,4 +1,4 @@
-package hyunec.airouter.service
+package hyunec.airouter.apiapp.service
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
-class OpenAIService(
+class OpenAIChatService(
     @Value("\${apikey.openai}") private val apiKey: String,
 ) {
     private val baseUrl = "https://api.openai.com/"
