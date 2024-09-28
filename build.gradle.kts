@@ -34,8 +34,20 @@ subprojects {
     dependencies {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
+
         val kotlinLoggingVersion: String by project
         implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
+
+        val datafakerVersion: String by project
+        implementation("net.datafaker:datafaker:$datafakerVersion")
+
+        val kotestVersion: String by project
+        val kotestExtVersion: String by project
+        testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+        testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+        testImplementation("io.kotest:kotest-property:$kotestVersion")
+        testImplementation("io.kotest:kotest-extensions-now:${kotestVersion}")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtVersion")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
