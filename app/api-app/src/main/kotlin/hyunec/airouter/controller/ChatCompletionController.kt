@@ -16,7 +16,7 @@ class ChatCompletionController(
     private val openAIService: OpenAIService
 ) {
     @PostMapping("/api/chat/completions")
-    fun chatCompletion(@RequestBody request: Request): ResponseEntity<out Flux<out Response>> {
+    fun chatCompletion(@RequestBody request: Request): ResponseEntity<out Flux<out String>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
@@ -25,7 +25,7 @@ class ChatCompletionController(
 
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(Flux.just(openAIService.chat(request)))
+            .body(openAIService.chat(request).flux())
     }
 
     data class Request(
