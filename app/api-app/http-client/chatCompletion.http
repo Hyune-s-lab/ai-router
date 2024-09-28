@@ -1,0 +1,36 @@
+### chat completions - non-stream
+POST {{host}}/api/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ]
+}
+
+### chat completions - stream
+POST {{host}}/api/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "stream": true
+}
