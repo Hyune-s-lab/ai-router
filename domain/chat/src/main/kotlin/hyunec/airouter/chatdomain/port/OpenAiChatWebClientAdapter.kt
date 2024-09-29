@@ -2,6 +2,7 @@ package hyunec.airouter.chatdomain.port
 
 import hyunec.airouter.chatdomain.config.OpenAiConfig
 import hyunec.airouter.chatdomain.dto.OpenAiChatRequest
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -22,7 +23,11 @@ class OpenAiChatWebClientAdapter(
         }
         .build()
 
+    private final val log = KotlinLogging.logger {}
+
     override fun chat(request: OpenAiChatRequest): Mono<out Any> {
+        log.debug { "### webclient chat" }
+
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
@@ -31,6 +36,8 @@ class OpenAiChatWebClientAdapter(
     }
 
     override fun streamChat(request: OpenAiChatRequest): Flux<out Any> {
+        log.debug { "### webclient streamChat" }
+
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)

@@ -34,3 +34,12 @@ Content-Type: application/json
   ],
   "stream": true
 }
+
+### chat mode change
+POST {{host}}/api/chat/mode
+
+spring-ai
+
+### chat mode find
+GET {{host}}/api/chat/mode
+
