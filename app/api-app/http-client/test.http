@@ -9,7 +9,7 @@ Content-Type: application/json
   "message": "Hello, World!"
 }
 
-### openAI - chat completions - non-stream
+### openAi - chat completions - non-stream
 POST https://api.openai.com/v1/chat/completions
 Authorization: Bearer {{apiKey.openAi}}
 Content-Type: application/json
@@ -28,7 +28,7 @@ Content-Type: application/json
   ]
 }
 
-### openAI - chat completions - stream
+### openAi - chat completions - stream
 POST https://api.openai.com/v1/chat/completions
 Authorization: Bearer {{apiKey.openAi}}
 Content-Type: application/json

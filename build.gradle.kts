@@ -36,8 +36,8 @@ subprojects {
 
     dependencyManagement {
         imports {
-            val springAIVersion: String by project
-            mavenBom("org.springframework.ai:spring-ai-bom:$springAIVersion")
+            val springAiVersion: String by project
+            mavenBom("org.springframework.ai:spring-ai-bom:$springAiVersion")
         }
     }
 

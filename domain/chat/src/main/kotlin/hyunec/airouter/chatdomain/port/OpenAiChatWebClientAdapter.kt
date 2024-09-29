@@ -1,7 +1,7 @@
 package hyunec.airouter.chatdomain.port
 
-import hyunec.airouter.chatdomain.config.OpenAIConfig
-import hyunec.airouter.chatdomain.dto.OpenAIChatRequest
+import hyunec.airouter.chatdomain.config.OpenAiConfig
+import hyunec.airouter.chatdomain.dto.OpenAiChatRequest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -10,9 +10,9 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
-class OpenAIChatWebClientAdapter(
-    config: OpenAIConfig
-) : OpenAIChatPort {
+class OpenAiChatWebClientAdapter(
+    config: OpenAiConfig
+) : OpenAiChatPort {
     private val webClient = WebClient.builder()
         .baseUrl(config.baseUrl)
         .defaultHeaders {
@@ -21,7 +21,7 @@ class OpenAIChatWebClientAdapter(
         }
         .build()
 
-    override fun chat(request: OpenAIChatRequest): Mono<String> {
+    override fun chat(request: OpenAiChatRequest): Mono<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
@@ -29,7 +29,7 @@ class OpenAIChatWebClientAdapter(
             .bodyToMono(String::class.java)
     }
 
-    override fun streamChat(request: OpenAIChatRequest): Flux<String> {
+    override fun streamChat(request: OpenAiChatRequest): Flux<String> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
