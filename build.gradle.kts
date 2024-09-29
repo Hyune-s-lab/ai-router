@@ -17,6 +17,9 @@ allprojects {
 
     repositories {
         mavenCentral()
+
+        maven("https://repo.spring.io/milestone")
+        maven("https://repo.spring.io/snapshot")
     }
 }
 
@@ -29,6 +32,13 @@ subprojects {
         plugin("org.jetbrains.kotlin.kapt")
         plugin("kotlin")
         plugin("kotlin-spring")
+    }
+
+    dependencyManagement {
+        imports {
+            val springAIVersion: String by project
+            mavenBom("org.springframework.ai:spring-ai-bom:$springAIVersion")
+        }
     }
 
     dependencies {
@@ -54,6 +64,7 @@ subprojects {
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+        testImplementation("io.projectreactor:reactor-test")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
