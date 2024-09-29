@@ -14,7 +14,7 @@ class ChatController(
     private val openAiChatPort: OpenAiChatPort
 ) {
     @PostMapping("/api/chat/completions")
-    fun chat(@RequestBody request: OpenAiChatRequest): ResponseEntity<out Flux<out String>> {
+    fun chat(@RequestBody request: OpenAiChatRequest): ResponseEntity<out Flux<out Any>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)

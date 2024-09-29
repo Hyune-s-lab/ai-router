@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -21,15 +22,15 @@ class OpenAiChatWebClientAdapter(
         }
         .build()
 
-    override fun chat(request: OpenAiChatRequest): Mono<String> {
+    override fun chat(request: OpenAiChatRequest): Mono<out Any> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
             .retrieve()
-            .bodyToMono(String::class.java)
+            .bodyToMono()
     }
 
-    override fun streamChat(request: OpenAiChatRequest): Flux<String> {
+    override fun streamChat(request: OpenAiChatRequest): Flux<out Any> {
         return webClient.post()
             .uri("/v1/chat/completions")
             .bodyValue(request)
