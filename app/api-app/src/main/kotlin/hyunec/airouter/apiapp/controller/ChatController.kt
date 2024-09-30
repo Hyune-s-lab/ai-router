@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import reactor.core.publisher.Flux
+import reactor.core.CorePublisher
 
 @RestController
 class ChatController(
@@ -19,7 +19,7 @@ class ChatController(
     private var mode = "webclient"
 
     @PostMapping("/api/chat/completions")
-    fun chat(@RequestBody request: OpenAiChatRequest): ResponseEntity<out Flux<out Any>> {
+    fun chat(@RequestBody request: OpenAiChatRequest): ResponseEntity<out CorePublisher<out Any>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
@@ -36,8 +36,8 @@ class ChatController(
             .contentType(MediaType.APPLICATION_JSON)
             .body(
                 when (mode) {
-                    "webclient" -> webclientChat.chat(request).flux()
-                    "spring-ai" -> springAiChat.chat(request).flux()
+                    "webclient" -> webclientChat.chat(request)
+                    "spring-ai" -> springAiChat.chat(request)
                     else -> throw IllegalArgumentException("Invalid mode: $mode")
                 }
             )
