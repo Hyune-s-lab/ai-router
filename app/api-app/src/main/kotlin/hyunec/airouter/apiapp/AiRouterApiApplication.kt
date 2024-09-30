@@ -1,11 +1,11 @@
-package hyunec.airouter
+package hyunec.airouter.apiapp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AiRouterApplication
+class AiRouterApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<AiRouterApplication>(*args)
+    runApplication<AiRouterApiApplication>(*args)
 }

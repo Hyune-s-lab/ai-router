@@ -1,0 +1,55 @@
+### health check
+GET {{host}}/health
+
+### echo
+POST {{host}}/echo
+Content-Type: application/json
+
+{
+  "message": "Hello, World!"
+}
+
+### openAi - chat completions - non-stream
+POST https://api.openai.com/v1/chat/completions
+Authorization: Bearer {{apiKey.openAi}}
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ]
+}
+
+### openAi - chat completions - stream
+POST https://api.openai.com/v1/chat/completions
+Authorization: Bearer {{apiKey.openAi}}
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "stream": true
+}
+
+###
+
+
+
+

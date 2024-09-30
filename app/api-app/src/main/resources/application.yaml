@@ -1,1 +1,9 @@
-spring.application.name=ai-router
+spring:
+    config:
+        import:
+            - domain-chat.yaml
+
+logging:
+    level:
+        root: info
+        hyunec: debug

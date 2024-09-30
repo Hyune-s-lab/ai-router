@@ -1,3 +1,0 @@
-### health check
-GET {{host}}/health
-
