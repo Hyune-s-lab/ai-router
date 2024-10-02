@@ -1,7 +1,5 @@
 ### chat completions - non-stream
 POST {{host}}/api/chat/completions
-#mode: SPRING_AI
-mode: WEBCLIENT
 Content-Type: application/json
 
 {
@@ -20,8 +18,80 @@ Content-Type: application/json
 
 ### chat completions - stream
 POST {{host}}/api/chat/completions
-#mode: SPRING_AI
-mode: WEBCLIENT
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "stream": true
+}
+
+### chat completions By chatClient - non-stream
+POST {{host}}/api/chat/completions/chat-client
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ]
+}
+
+### chat completions By chatClient - stream
+POST {{host}}/api/chat/completions/chat-client
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ],
+  "stream": true
+}
+
+### chat completions By webClient - non-stream
+POST {{host}}/api/chat/completions/webclient
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "Hello!"
+    }
+  ]
+}
+
+### chat completions By webClient - stream
+POST {{host}}/api/chat/completions/webclient
 Content-Type: application/json
 
 {

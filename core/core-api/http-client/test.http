@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### openAi - chat completions - non-stream
-POST {{aiProvider.openAi.baseUrl}}/v1/chat/completions
+POST {{aiProvider.openai.baseUrl}}/v1/chat/completions
 Authorization: Bearer {{aiProvider.openAi.apiKey}}
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### openAi - chat completions - stream
-POST {{aiProvider.openAi.baseUrl}}/v1/chat/completions
+POST {{aiProvider.openai.baseUrl}}/v1/chat/completions
 Authorization: Bearer {{aiProvider.openAi.apiKey}}
 Content-Type: application/json
 

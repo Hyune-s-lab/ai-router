@@ -1,4 +1,16 @@
+spring.config.activate.on-profile: test
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+ai:
+  properties:
+    - provider: OPENAI
+      base-url: https://api.openai.com/
+      api-key: "fill in your api key here"
+
 logging:
-    level:
-        root: info
-        hyunec: debug
+  level:
+    root: info
+    hyunec: debug
