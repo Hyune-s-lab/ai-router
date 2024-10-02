@@ -10,8 +10,8 @@ Content-Type: application/json
 }
 
 ### openAi - chat completions - non-stream
-POST https://api.openai.com/v1/chat/completions
-Authorization: Bearer {{apiKey.openAi}}
+POST {{aiProvider.openAi.baseUrl}}/v1/chat/completions
+Authorization: Bearer {{aiProvider.openAi.apiKey}}
 Content-Type: application/json
 
 {
@@ -29,8 +29,8 @@ Content-Type: application/json
 }
 
 ### openAi - chat completions - stream
-POST https://api.openai.com/v1/chat/completions
-Authorization: Bearer {{apiKey.openAi}}
+POST {{aiProvider.openAi.baseUrl}}/v1/chat/completions
+Authorization: Bearer {{aiProvider.openAi.apiKey}}
 Content-Type: application/json
 
 {
@@ -48,8 +48,37 @@ Content-Type: application/json
   "stream": true
 }
 
-###
+### anthropic - message - non-stream
+POST {{aiProvider.anthropic.baseUrl}}/v1/messages
+x-api-key: {{aiProvider.anthropic.apiKey}}
+anthropic-version: 2023-06-01
+Content-Type: application/json
 
+{
+  "model": "claude-3-5-sonnet-20240620",
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hello, world"
+    }
+  ]
+}
 
+### anthropic - message - stream
+POST {{aiProvider.anthropic.baseUrl}}/v1/messages
+x-api-key: {{aiProvider.anthropic.apiKey}}
+anthropic-version: 2023-06-01
+Content-Type: application/json
 
-
+{
+  "model": "claude-3-5-sonnet-20240620",
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hello, world"
+    }
+  ],
+  "stream": true
+}
