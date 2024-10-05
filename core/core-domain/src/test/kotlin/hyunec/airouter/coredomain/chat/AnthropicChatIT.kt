@@ -16,10 +16,10 @@ import kotlin.test.Test
  */
 @Ignore
 @SpringBootTest
-class OpenAiChatIT(
-    private val chatClientSut: OpenAiChatClientService,
-    private val apiSut: OpenAiApiService,
-    private val webClientSut: OpenAiWebClientService
+class AnthropicChatIT(
+    private val chatClientSut: AnthropicChatClientService,
+    private val apiSut: AnthropicApiService,
+    private val webClientSut: AnthropicWebClientService
 ) : TestDefaultSupport() {
     val log = KotlinLogging.logger {}
 
@@ -100,12 +100,8 @@ class OpenAiChatIT(
 
     companion object {
         fun createRequest(stream: Boolean = false) = ChatRequest(
-            model = Model.GPT_4O,
+            model = Model.CLAUDE_3_5_SONNET_20240620,
             messages = listOf(
-                Message(
-                    role = MessageType.SYSTEM,
-                    content = "You are a helpful assistant."
-                ),
                 Message(
                     role = MessageType.USER,
                     content = "hello"

@@ -8,10 +8,10 @@ ai:
   properties:
     - provider: OPENAI
       base-url: https://api.openai.com/
-      api-key: "fill in your api key here"
+      api-key: ${TEST_OPENAI_API_KEY:fill-me-in}
     - provider: ANTHROPIC
       base-url: https://api.anthropic.com/
-      api-key: "fill in your api key here"
+      api-key: ${TEST_ANTHROPIC_API_KEY:fill-me-in}
 
 logging:
   level:
