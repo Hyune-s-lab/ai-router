@@ -1,9 +1,0 @@
-spring:
-    config:
-        import:
-            - domain-chat.yaml
-
-logging:
-    level:
-        root: info
-        hyunec: debug

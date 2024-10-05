@@ -1,7 +1,6 @@
 rootProject.name = "ai-router"
 
 include(
-    "app:api-app",
-
-    "domain:chat"
+    "core:core-api",
+    "core:core-domain",
 )

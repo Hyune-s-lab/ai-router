@@ -1,0 +1,9 @@
+spring:
+    config:
+        import:
+            - core-domain.yaml
+
+logging:
+    level:
+        root: info
+        hyunec: debug
