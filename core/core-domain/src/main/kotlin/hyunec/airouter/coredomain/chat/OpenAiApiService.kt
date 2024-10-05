@@ -4,9 +4,11 @@ import hyunec.airouter.coredomain.chat.dto.ChatRequest
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.ai.chat.messages.*
 import org.springframework.ai.chat.messages.ToolResponseMessage.ToolResponse
+import org.springframework.ai.chat.prompt.ChatOptions
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.model.ModelOptionsUtils
 import org.springframework.ai.openai.OpenAiChatModel
+import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.ai.openai.api.OpenAiApi
 import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionMessage
 import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionMessage.ChatCompletionFunction
@@ -116,7 +118,7 @@ class OpenAiApiService(
 //                    }
                 }
 
-                return@map java.util.List.of<ChatCompletionMessage>(
+                return@map listOf<ChatCompletionMessage>(
                     ChatCompletionMessage(
                         content,
                         Role.valueOf(message.messageType.name)
@@ -126,18 +128,18 @@ class OpenAiApiService(
         }.flatMap { obj: List<ChatCompletionMessage> -> obj.stream() }.toList()
         var request = ChatCompletionRequest(chatCompletionMessages, stream)
 //        val enabledToolsToUse: MutableSet<String> = HashSet<Any?>()
-//        if (prompt.options != null) {
-//            val updatedRuntimeOptions = ModelOptionsUtils.copyToTarget(
-//                prompt.options,
-//                ChatOptions::class.java,
-//                OpenAiChatOptions::class.java
-//            ) as OpenAiChatOptions
+        if (prompt.options != null) {
+            val updatedRuntimeOptions = ModelOptionsUtils.copyToTarget(
+                prompt.options,
+                ChatOptions::class.java,
+                OpenAiChatOptions::class.java
+            ) as OpenAiChatOptions
 //            enabledToolsToUse.addAll(this.runtimeFunctionCallbackConfigurations(updatedRuntimeOptions))
-//            request = ModelOptionsUtils.merge(
-//                updatedRuntimeOptions, request,
-//                ChatCompletionRequest::class.java
-//            ) as ChatCompletionRequest
-//        }
+            request = ModelOptionsUtils.merge(
+                updatedRuntimeOptions, request,
+                ChatCompletionRequest::class.java
+            ) as ChatCompletionRequest
+        }
 //
 //        if (!CollectionUtils.isEmpty(defaultOptions.getFunctions())) {
 //            enabledToolsToUse.addAll(defaultOptions.getFunctions())
