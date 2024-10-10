@@ -3,3 +3,9 @@ ai:
     - provider: OPENAI
       base-url: https://api.openai.com/
       api-key: ${OPENAI_API_KEY}
+    - provider: ANTHROPIC
+      base-url: https://api.anthropic.com/
+      api-key: ${ANTHROPIC_API_KEY}
+
+---
+spring.config.activate.on-profile: local

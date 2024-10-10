@@ -1,9 +1,12 @@
 spring:
-    config:
-        import:
-            - core-domain.yaml
+  config:
+    import:
+      - core-domain.yaml
 
 logging:
-    level:
-        root: info
-        hyunec: debug
+  level:
+    root: info
+    hyunec: debug
+
+---
+spring.config.activate.on-profile: local

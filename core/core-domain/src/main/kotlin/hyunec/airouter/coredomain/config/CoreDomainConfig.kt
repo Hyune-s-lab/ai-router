@@ -4,6 +4,7 @@ import hyunec.airouter.coredomain.common.AiProperty
 import hyunec.airouter.coredomain.common.AiProvider
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.annotation.PostConstruct
+import org.springframework.ai.anthropic.api.AnthropicApi
 import org.springframework.ai.openai.api.OpenAiApi
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -45,6 +46,27 @@ class CoreDomainConfig {
                 .defaultHeaders {
                     it[HttpHeaders.AUTHORIZATION] = "Bearer $apiKey"
                     it[HttpHeaders.CONTENT_TYPE] = MediaType.APPLICATION_JSON_VALUE
+                }
+                .build()
+        }
+    }
+
+    @Bean
+    fun anthropicAiApi(): AnthropicApi {
+        return properties.first { it.provider == AiProvider.ANTHROPIC }.run {
+            AnthropicApi(apiKey)
+        }
+    }
+
+    @Bean
+    fun anthropicWebClient(): WebClient {
+        return properties.first { it.provider == AiProvider.ANTHROPIC }.run {
+            WebClient.builder()
+                .baseUrl(baseUrl)
+                .defaultHeaders {
+                    it["x-api-key"] = apiKey
+                    it[HttpHeaders.CONTENT_TYPE] = MediaType.APPLICATION_JSON_VALUE
+                    it["anthropic-version"] = "2023-06-01"
                 }
                 .build()
         }

@@ -13,53 +13,53 @@ import reactor.core.CorePublisher
  * ai 구현체 별로 response dto 가 다른 것을 확인하는 api
  */
 @RestController
-class ChatController2(
-    private val openAiApiService: ChatService,
-    private val openAiChatClientService: ChatService,
-    private val openAiWebClientService: ChatService,
+class AnthropicChatController(
+    private val anthropicApiService: ChatService,
+    private val anthropicChatClientService: ChatService,
+    private val anthropicWebClientService: ChatService,
 ) {
-    @PostMapping("/api/chat/completions/spring-api")
+    @PostMapping("/api/chat/completions/spring-api/anthropic")
     fun chat(
         @RequestBody request: ChatRequest
     ): ResponseEntity<out CorePublisher<out Any>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(openAiApiService.streamChat(request))
+                .body(anthropicApiService.streamChat(request))
         }
 
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(openAiApiService.chat(request))
+            .body(anthropicApiService.chat(request))
     }
 
-    @PostMapping("/api/chat/completions/chat-client")
+    @PostMapping("/api/chat/completions/chat-client/anthropic")
     fun chatClient(
         @RequestBody request: ChatRequest
     ): ResponseEntity<out CorePublisher<out Any>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(openAiChatClientService.streamChat(request))
+                .body(anthropicChatClientService.streamChat(request))
         }
 
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(openAiChatClientService.chat(request))
+            .body(anthropicChatClientService.chat(request))
     }
 
-    @PostMapping("/api/chat/completions/webclient")
+    @PostMapping("/api/chat/completions/webclient/anthropic")
     fun chatWebClient(
         @RequestBody request: ChatRequest
     ): ResponseEntity<out CorePublisher<out Any>> {
         if (request.stream) {
             return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(openAiWebClientService.streamChat(request))
+                .body(anthropicWebClientService.streamChat(request))
         }
 
         return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(openAiWebClientService.chat(request))
+            .body(anthropicWebClientService.chat(request))
     }
 }
